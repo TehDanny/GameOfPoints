@@ -26,10 +26,22 @@ namespace GoP_UI
             InitializeComponent();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void StartNewGame_Click(object sender, RoutedEventArgs e)
         {
             PointCounter pc = new PointCounter();
             pc.Initialize();
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Created by: Daniel Alexander Nedergaard\n" +
+                "Last time updated: " + DateTime.Now.Date.ToShortDateString(),
+                "About");
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

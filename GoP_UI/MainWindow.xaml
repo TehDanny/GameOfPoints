@@ -7,7 +7,14 @@
         mc:Ignorable="d"
         Title="Game of Points" Height="350" Width="525">
     <Grid>
-        <Button x:Name="button" Content="Temp test start" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Click="button_Click"/>
-
+        <Menu IsMainMenu="True">
+            <MenuItem Header="_Game">
+                <MenuItem Header="_Start new game" Click="StartNewGame_Click"/>
+                <Separator/>
+                <MenuItem Header="_About" Click="About_Click"/>
+                <Separator/>
+                <MenuItem Header="_Exit" Click="Exit_Click"/>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>
