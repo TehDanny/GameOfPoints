@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GoP_Logic;
 
 namespace GoP_UI
 {
@@ -23,6 +24,12 @@ namespace GoP_UI
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            PointCounter pc = new PointCounter();
+            pc.Initialize();
         }
     }
 }
