@@ -21,6 +21,9 @@ namespace GoP_UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        PointCounter pc;
+        //Upgrade up;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,8 +31,18 @@ namespace GoP_UI
 
         private void StartNewGame_Click(object sender, RoutedEventArgs e)
         {
-            PointCounter pc = new PointCounter();
+            pc = new PointCounter();
+            //up = new Upgrade();
             pc.Initialize();
+            pc.OnTick += (points) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    PointsLbl.Content = points.ToString();
+                });
+            };
+
+            UpgradeBtn.Visibility = Visibility.Visible;
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
@@ -42,6 +55,13 @@ namespace GoP_UI
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void UpgradeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            pc.IncreasePointsPerInterval(1);
+            pc.DecreasePoints(10);
+            //up.Upgrade1();
         }
     }
 }

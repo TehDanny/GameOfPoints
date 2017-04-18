@@ -9,16 +9,26 @@ namespace GoP_Logic
 {
     public class PointCounter
     {
+        public delegate void pointDelegate(double points);
+        public event pointDelegate OnTick;
+
         private double trueInterval; // seconds
         private int intInterval; // rounded seconds
         private double points;
         private double pointsPerInterval;
 
+        private static object lockObj;
+
+        public PointCounter()
+        {
+            lockObj = new object();
+        }
+
         public void Initialize()
         {
             points = 0;
-            trueInterval = 10000;
-            intInterval = 10000;
+            trueInterval = 1000;
+            intInterval = 1000;
             pointsPerInterval = 1;
 
             Thread countThread = new Thread(Count);
@@ -27,16 +37,20 @@ namespace GoP_Logic
 
         private void Count()
         {
-            Thread.Sleep(intInterval);
-            AddPoints();
+            while (true)
+            {
+                Thread.Sleep(intInterval);
+                AddPoints();
+                OnTick?.Invoke(points);
+            }
         }
 
         private void AddPoints()
         {
             points += pointsPerInterval;
-        }
+        } 
 
-        private void IncreasePointsPerInterval(double value)
+        public void IncreasePointsPerInterval(double value)
         {
             pointsPerInterval += value;
         }
@@ -56,6 +70,14 @@ namespace GoP_Logic
         private void UpdateIntInterval()
         {
             intInterval = Convert.ToInt32(trueInterval);
+        }
+
+        public void DecreasePoints(double value)
+        {
+            lock(lockObj)
+            {
+                points -= value;
+            }
         }
     }
 }
