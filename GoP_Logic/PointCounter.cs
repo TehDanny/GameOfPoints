@@ -50,6 +50,11 @@ namespace GoP_Logic
             points += pointsPerInterval;
         } 
 
+        public double GetPoints()
+        {
+            return points;
+        }
+
         public void IncreasePointsPerInterval(double value)
         {
             pointsPerInterval += value;

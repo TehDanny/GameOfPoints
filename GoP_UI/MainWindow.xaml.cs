@@ -36,13 +36,19 @@ namespace GoP_UI
             pc.Initialize();
             pc.OnTick += (points) =>
             {
-                Dispatcher.Invoke(() =>
-                {
-                    PointsLbl.Content = points.ToString();
-                });
             };
 
-            UpgradeBtn.Visibility = Visibility.Visible;
+            Upgrade1Btn.Visibility = Visibility.Visible;
+            Upgrade2Btn.Visibility = Visibility.Visible;
+        }
+
+        private void PointLblEventHandler(object sender, CustomEventArgs a)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                PointsLbl.Content = points.ToString();
+            });
+
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
@@ -54,14 +60,30 @@ namespace GoP_UI
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            pc.OnTick = null;
             Application.Current.Shutdown();
         }
 
-        private void UpgradeBtn_Click(object sender, RoutedEventArgs e)
+        private void Upgrade1Btn_Click(object sender, RoutedEventArgs e)
         {
-            pc.IncreasePointsPerInterval(1);
-            pc.DecreasePoints(10);
-            //up.Upgrade1();
+            double cost = 10;
+            if (pc.GetPoints() > cost)
+            {
+                pc.IncreasePointsPerInterval(1);
+                pc.DecreasePoints(10);
+                //up.Upgrade1();
+            }
+        }
+
+        private void Upgrade2Btn_Click(object sender, RoutedEventArgs e)
+        {
+            double cost = 100;
+            if (pc.GetPoints() > cost)
+            {
+                pc.IncreasePointsPerInterval(15);
+                pc.DecreasePoints(100);
+                //up.Upgrade1();
+            }
         }
     }
 }
